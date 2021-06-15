@@ -1,5 +1,9 @@
 package game;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,5 +17,19 @@ public class GameRepository {
 
     public void addGame(Game game) {
         games.add(game);
+    }
+
+    public void readFromFile(String fileName) {
+        Path file = Path.of(fileName);
+        try (BufferedReader bf = Files.newBufferedReader(file)) {
+            String line;
+            String[] result;
+            while ((line = bf.readLine()) != null) {
+                result = line.split(";");
+                this.addGame(new Game(result[0], result[1], Integer.parseInt(result[2]), Integer.parseInt(result[3])));
+            }
+        } catch (IOException ioe) {
+            throw new IllegalArgumentException("File not found", ioe);
+        }
     }
 }

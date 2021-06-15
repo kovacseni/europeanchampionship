@@ -4,12 +4,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
 public class GameRepositoryTest {
 
     GameRepository gameRepository;
-    List<Game> games;
 
     @BeforeEach
     void setUp() {
@@ -18,12 +15,12 @@ public class GameRepositoryTest {
 
     @Test
     void testReadFromFile() {
-        games = gameRepository.readFromFile();
+        gameRepository.readFromFile("src/main/resources/results.csv");
 
-        Assertions.assertEquals("Wales", games.get(1).getFirstCountry());
-        Assertions.assertEquals("Russia", games.get(3).getSecondCountry());
-        Assertions.assertEquals(0, games.get(7).getFirstCountryScore());
-        Assertions.assertEquals(1, games.get(12).getSecondCountryScore());
+        Assertions.assertEquals("Wales", gameRepository.getGames().get(1).getFirstCountry());
+        Assertions.assertEquals("Russia", gameRepository.getGames(). get(3).getSecondCountry());
+        Assertions.assertEquals(0, gameRepository.getGames().get(7).getFirstCountryScore());
+        Assertions.assertEquals(1, gameRepository.getGames().get(12).getSecondCountryScore());
     }
 
     @Test
